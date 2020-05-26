@@ -8,13 +8,14 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"testing"
 
-	"github.com/digitorus/timestamp"
+	"github.com/twitchgg/timestamp"
 )
 
-// ExampleCreateRequest_ParseResponse demonstrates the creation of a time-stamp request, sending
+// TestExampleCreateRequestParseResponse demonstrates the creation of a time-stamp request, sending
 // it to the server and parsing the response.
-func ExampleCreateRequest_ParseResponse() {
+func TestExampleCreateRequestParseResponse(t *testing.T) {
 	tsq, err := timestamp.CreateRequest(strings.NewReader("ExampleCreateRequestParseResponse"), &timestamp.RequestOptions{
 		Hash:         crypto.SHA256,
 		Certificates: true,

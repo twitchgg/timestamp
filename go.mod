@@ -1,5 +1,7 @@
-module github.com/digitorus/timestamp
+module github.com/twitchgg/timestamp
 
 go 1.14
 
-require github.com/digitorus/pkcs7 v0.0.0-20200320092839-808436b6f6d1
+require github.com/twitchgg/pkcs7 v0.0.0
+
+replace github.com/twitchgg/pkcs7 v0.0.0 => ../pkcs7

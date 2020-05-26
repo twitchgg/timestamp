@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/digitorus/pkcs7"
+	"github.com/twitchgg/pkcs7"
 )
 
 // FailureInfo contains the result of an Time-Stamp request. See
@@ -478,7 +478,7 @@ func (t *Timestamp) populateTSTInfo(messageImprint messageImprint, policyOID asn
 	}
 	if t.Qualified && !oidInExtensions(asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 1, 3}, t.ExtraExtensions) {
 		qcStatements := []qcStatement{
-			qcStatement{
+			{
 				StatementID: asn1.ObjectIdentifier{0, 4, 0, 19422, 1, 1},
 			},
 		}
@@ -505,7 +505,7 @@ func populateSigningCertificateV2Ext(certificate *x509.Certificate) ([]byte, err
 
 	signingCertificateV2 := signingCertificateV2{
 		Certs: []essCertIDv2{
-			essCertIDv2{
+			{
 				HashAlgorithm: pkix.AlgorithmIdentifier{
 					Algorithm:  asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 1},
 					Parameters: asn1.NullRawValue,
@@ -539,7 +539,7 @@ func (t *Timestamp) generateSignedData(tstInfo []byte, privateKey crypto.Private
 	if t.AddTSACertificate {
 		err = signedData.AddSigner(certificate, privateKey, pkcs7.SignerInfoConfig{
 			ExtraSignedAttributes: []pkcs7.Attribute{
-				pkcs7.Attribute{
+				{
 					Type:  asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 9, 16, 2, 47},
 					Value: asn1.RawContent(signingCertV2Bytes),
 				},
@@ -548,7 +548,7 @@ func (t *Timestamp) generateSignedData(tstInfo []byte, privateKey crypto.Private
 	} else {
 		err = signedData.AddSignerNoChain(certificate, privateKey, pkcs7.SignerInfoConfig{
 			ExtraSignedAttributes: []pkcs7.Attribute{
-				pkcs7.Attribute{
+				{
 					Type:  asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 9, 16, 2, 47},
 					Value: asn1.RawContent(signingCertV2Bytes),
 				},
